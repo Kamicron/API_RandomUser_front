@@ -1,11 +1,9 @@
 <template>
-  <div>Coucou</div>
+  <div>
+    <CardComponent />
+  </div>
 </template>
 
 <script setup lang='ts'>
-  
+import CardComponent from '/components/card-component.vue';
 </script>
-
-<style lang='scss' scoped>
-  
-</style>
