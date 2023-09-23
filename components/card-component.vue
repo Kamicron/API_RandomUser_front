@@ -1,94 +1,58 @@
-<!-- <template>
-  <div class="card">
-    <p>Prénom aléatoire : {{ firstname }}</p>
-    <button @click="createRandomPNJ">Créer un PNJ aléatoire</button>
-  </div>
-</template>
-
-<script setup lang='ts'>
-import { ref, onMounted } from 'vue';
-import { getRandomFirstName } from '../services/apiService';
-import axios from 'axios';
-
-const firstname = ref('');
-
-onMounted(async () => {
-  firstname.value = await getRandomFirstName();
-});
-
-const createRandomPNJ = async () => {
-  try {
-    const response = await axios.post('/apocalypse/create-random-pnj');
-    if (response.status === 200) {
-      console.log('PNJ créé avec succès');
-    }
-  } catch (error) {
-    console.error('Erreur lors de la création du PNJ', error);
-  }
-};
-
-</script>
-
-<style lang="scss" scoped>
-.card {
-  border: 1px solid #ccc;
-  padding: 20px;
-  margin: 20px;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-}
-</style> -->
-
-
 <template>
-  <div class="character-card">
-    <div class="wrapper">
-      <div class="card-left">
-        <img
-          :src="`/img/pnj/${props.character.personalInfo.ethnicity.label.toLowerCase()}/${props.character.personalInfo.gender.label.toLowerCase()}/${props.character.photo.src}.png`"
-          alt="test" class="character-image" />
-      </div>
-      <div class="card-right">
-        <div class="top-section">
-          <h2>{{ character.personalInfo.firstname }} {{ character.personalInfo.lastname }}</h2>
-          <div class="row">
-            <fa class="icon" v-if="character.personalInfo.gender.label === 'woman'" icon="venus" type="regular" />
-            <fa class="icon" v-if="character.personalInfo.gender.label === 'man'" icon="mars" type="regular" />
+  <div class="container">
+    <div v-if="character !== undefined " class="character-card">
+      <!-- <div v-if="1 !== 1 " class="character-card"> -->
+      <div class="wrapper">
+        <div class="card-left">
+          <img
+            :src="`/img/pnj/${props.character.personalInfo.ethnicity.label.toLowerCase()}/${props.character.personalInfo.gender.label.toLowerCase()}/${props.character.photo.src}.png`"
+            alt="test" class="character-image" />
+        </div>
+        <div class="card-right">
+          <div class="top-section">
+            <h2>{{ character.personalInfo.firstname }} {{ character.personalInfo.lastname }}</h2>
+            <div class="row">
+              <fa class="icon" v-if="character.personalInfo.gender.label === 'woman'" icon="venus" type="regular" />
+              <fa class="icon" v-if="character.personalInfo.gender.label === 'man'" icon="mars" type="regular" />
 
-            <p>{{ character.personalInfo.gender.display_name }}</p>
-          </div>
-          <div class="row">
-            <fa class="icon" :icon="character.work.logo_work" type="regular" />
-            <p>{{ character.work.displayName }}</p>
+              <p>{{ character.personalInfo.gender.display_name }}</p>
+            </div>
+            <div class="row">
+              <fa class="icon" :icon="character.work.logo_work" type="regular" />
+              <p>{{ character.work.displayName }}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <!-- <div class="level">
+        <!-- <div class="level">
         <div class="level__value">{{ character.level }}</div>
         <div class="level__exp">{{ formatNumber(character.exp) }} / {{ formatNumber(getNextLevelXP(character.level)) }}
         </div>
       </div> -->
-    </div>
-    <div class="bottom-section">
-      <div class="column stats">
-        <!-- <PnjProgressBar :progress-bar="strength" />
+      </div>
+      <div class="bottom-section">
+        <div class="column stats">
+          <!-- <PnjProgressBar :progress-bar="strength" />
         <PnjProgressBar :progress-bar="agility" />
         <PnjProgressBar :progress-bar="stealth" />
         <PnjProgressBar :progress-bar="intelligence" /> -->
-      </div>
-      <div class="column stats">
-        <!-- <PnjProgressBar :progress-bar="charisma" />
+        </div>
+        <div class="column stats">
+          <!-- <PnjProgressBar :progress-bar="charisma" />
         <PnjProgressBar :progress-bar="survival" />
         <PnjProgressBar :progress-bar="accuracy" />
         <PnjProgressBar :progress-bar="perception" /> -->
+        </div>
       </div>
-    </div>
 
+    </div>
+    <div v-else class="loader-container">
+      <loader :isLoading="character" />
+    </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import type {  PnjInfo } from '@types';
+import type { PnjInfo } from '@types';
 
 // import useExperienceLevels from '@/composables/global/pnj/leveling'
 // Utiliser le composable
@@ -101,19 +65,12 @@ const props = defineProps({
   },
 });
 
-console.log('character.personalInfo.gender.displayName', props.character.personalInfo.gender.display_name
-);
+const loadingData = ref(false);
 
-const maxStat = 20
-// const strength = ref<progressData>({ data: props.character.strength, displayName: 'Force', maxData: maxStat })
-// const agility = ref<progressData>({ data: props.character.agility, displayName: 'Agilité', maxData: maxStat })
-// const stealth = ref<progressData>({ data: props.character.stealth, displayName: 'Discretion', maxData: maxStat })
-// const intelligence = ref<progressData>({ data: props.character.intelligence, displayName: 'Intelligence', maxData: maxStat })
-// const charisma = ref<progressData>({ data: props.character.charisma, displayName: 'Charimse', maxData: maxStat })
-// const survival = ref<progressData>({ data: props.character.survival, displayName: 'Survie', maxData: maxStat })
-// const accuracy = ref<progressData>({ data: props.character.accuracy, displayName: 'Précision', maxData: maxStat })
-// const perception = ref<progressData>({ data: props.character.perception, displayName: 'Perception', maxData: maxStat })
-
+// Simulez le chargement de données
+setTimeout(() => {
+  loadingData.value = false;
+}, 2000);
 </script>
 
 <style lang='scss' scoped>
@@ -164,6 +121,7 @@ h1 {
 
 .character-card {
   width: 400px;
+  height: 160px;
   margin: 20px;
   background: $card_color_main;
   box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
@@ -274,4 +232,27 @@ h2 {
 .add-stat {
   width: 100%;
 }
+
+.container {
+  position: relative;  // Position relative pour le conteneur
+  width: 400px; // Ou une largeur fixe, selon votre design
+  height: 160px; // Ou une hauteur fixe, selon votre design
+}
+
+.loader-container {
+  width: 400px; // Ou une largeur fixe, selon votre design
+  height: 160px; // Ou une hauteur fixe, selon votre design
+  box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
+  border-radius: 15px;
+  // border: 1px solid black;
+  margin: 20px;
+  background-color: $card_color_main;
+
+  // position: absolute; // Position absolue pour le loader
+  // top: 0;
+  // left: 0;
+  // right: 0;
+  // bottom: 0;
+}
+
 </style>

@@ -13,9 +13,11 @@ This file outlines all the significant changes made to the project. The format i
 
 ### 📦 Added
 - add new photo.
+- add normalize.css
 
 ### 🔄 Changed
 - Card-pnj to show first name, name, photo, gender, and work, link to API.
+- style of the index page
 
 
 ### 🐛 Fixed

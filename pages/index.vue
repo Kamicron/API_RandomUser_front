@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <CardComponent v-if="character" :character="character"/>
+  <div class="wrapper">
+    <CardComponent class="test" :character="character"/>
   </div>
 </template>
 
@@ -16,3 +16,14 @@ onMounted(async () => {
 });
 
 </script>
+
+<style lang="scss" scoped>
+.wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.test {
+  height: 192px;
+}
+</style>

@@ -6,6 +6,9 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/fontawesome.js'
   ],
+  css: [
+    '~/assets/normalize.css',
+  ],
   vite: {
     css: {
         preprocessorOptions: {
