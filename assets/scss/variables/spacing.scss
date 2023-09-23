@@ -1,0 +1,14 @@
+// Facteur de base (4px par exemple)
+$spacing-factor: 4px;
+
+// Définir les espacements en fonction de ce facteur
+$spacing-xxs: $spacing-factor;      // 4px
+$spacing-xs: $spacing-factor * 2;   // 8px
+$spacing-sm: $spacing-factor * 3;   // 12px
+$spacing-md: $spacing-factor * 4;   // 16px
+$spacing-lg: $spacing-factor * 5;   // 20px
+$spacing-xl: $spacing-factor * 6;   // 24px
+$spacing-xxl: $spacing-factor * 8;  // 32px
+$spacing-3xl: $spacing-factor * 10; // 40px
+$spacing-4xl: $spacing-factor * 12; // 48px
+$spacing-5xl: $spacing-factor * 16; // 64px

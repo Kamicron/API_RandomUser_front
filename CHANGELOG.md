@@ -9,6 +9,18 @@ This file outlines all the significant changes made to the project. The format i
 - Connection tje API to front
 - Create basic component to test
 
+## [0.1.1] - 2023-09-23
+
+### 📦 Added
+- add new photo.
+
+### 🔄 Changed
+- Card-pnj to show first name, name, photo, gender, and work, link to API.
+
+
+### 🐛 Fixed
+- component font-awesome.
+
 
 ## [0.1.0] - 2023-09-22
 
@@ -33,6 +45,8 @@ This file outlines all the significant changes made to the project. The format i
 
 
 ## Template for new entries
+
+## [X.X.X] - XXXX-XX-XX
 
 ### 📦 Added
 - New features that have been added.
