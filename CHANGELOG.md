@@ -9,6 +9,15 @@ This file outlines all the significant changes made to the project. The format i
 - Connection tje API to front
 - Create basic component to test
 
+## [0.1.2] - 2023-09-24
+
+### 📦 Added
+- Add new component: table of distribution ethnicity by nationality
+
+### 🔄 Changed
+- Changes in `card-component` to show nationality and ethnicity.
+
+
 ## [0.1.1] - 2023-09-23
 
 ### 📦 Added

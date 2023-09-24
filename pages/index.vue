@@ -1,19 +1,27 @@
 <template>
   <div class="wrapper">
     <CardComponent class="test" :character="character"/>
+    <array-distribution :data="data"/>
   </div>
+  <button @click="newRandomPnj()">nouveau pnj</button>
+
 </template>
 
 <script setup lang='ts'>
-import { getRandomCharacter } from '../services/apiService';
+import { getRandomCharacter, getEthnicDistributionByNationality  } from '../services/apiService';
 
 const character = ref()
+const data = ref(null);
 
 import CardComponent from '/components/card-component.vue';
 onMounted(async () => {
-  character.value = await getRandomCharacter();
-  console.log('  character.value ',  character.value );
+  // newRandomPnj()
+  data.value = await getEthnicDistributionByNationality();
 });
+
+async function newRandomPnj() {
+  character.value = await getRandomCharacter();  
+}
 
 </script>
 

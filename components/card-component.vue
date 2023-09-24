@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <div v-if="character !== undefined " class="character-card">
+  <div class="container" :key="forceUpdate">
+    <div v-if="character !== undefined" class="character-card">
       <!-- <div v-if="1 !== 1 " class="character-card"> -->
       <div class="wrapper">
         <div class="card-left">
@@ -11,15 +11,21 @@
         <div class="card-right">
           <div class="top-section">
             <h2>{{ character.personalInfo.firstname }} {{ character.personalInfo.lastname }}</h2>
-            <div class="row">
-              <fa class="icon" v-if="character.personalInfo.gender.label === 'woman'" icon="venus" type="regular" />
-              <fa class="icon" v-if="character.personalInfo.gender.label === 'man'" icon="mars" type="regular" />
-
-              <p>{{ character.personalInfo.gender.display_name }}</p>
-            </div>
-            <div class="row">
-              <fa class="icon" :icon="character.work.logo_work" type="regular" />
-              <p>{{ character.work.displayName }}</p>
+            <div class="flex">
+              <div class="row">{{ character.personalInfo.ethnicity.display_name }}</div>
+              <div class="row">
+                <img class="nationalityFlag" :src="`img/flags/${character.personalInfo.nationality.flag}.png`" :alt="`icon of ${character.personalInfo.nationality.flag}`"/>
+                {{ character.personalInfo.nationality.display_name_fr }}
+              </div>
+              <div class="row">
+                <fa class="icon" v-if="character.personalInfo.gender.label === 'woman'" icon="venus" type="regular" />
+                <fa class="icon" v-if="character.personalInfo.gender.label === 'man'" icon="mars" type="regular" />
+                <p>{{ character.personalInfo.gender.display_name }}</p>
+              </div>
+              <div class="row">
+                <fa class="icon" :icon="currentCharacter.work.logo_work" type="regular" />
+                <p>{{ character.work.displayName }}</p>
+              </div>
             </div>
           </div>
         </div>
@@ -56,13 +62,34 @@ import type { PnjInfo } from '@types';
 
 // import useExperienceLevels from '@/composables/global/pnj/leveling'
 // Utiliser le composable
-// const { getNextLevelXP, formatNumber } = useExperienceLevels()
+// const { getNextLevdelXP, formatNumber } = useExperienceLevels()
 
 const props = defineProps({
   character: {
     type: Object,
     required: true,
   },
+});
+
+const currentCharacter = ref(props.character);
+
+const forceUpdate = ref(0);
+
+watch(() => props.character, async (newVal) => {
+  currentCharacter.value = newVal;
+  forceUpdate.value += 1;
+  await nextTick();
+  console.log('Logo should be updated now.');
+});
+
+
+// Juste pour le débogage
+onMounted(() => {
+  watch(() => currentCharacter.value, (newVal) => {
+    if (newVal) {
+      console.log('currentCharacter updated:', newVal.work.logo_work);
+    }
+  }, { immediate: true });
 });
 
 const loadingData = ref(false);
@@ -121,7 +148,7 @@ h1 {
 
 .character-card {
   width: 400px;
-  height: 160px;
+  height: 200px;
   margin: 20px;
   background: $card_color_main;
   box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
@@ -233,15 +260,21 @@ h2 {
   width: 100%;
 }
 
+.flex {
+  display: flex;
+  flex-direction: column;
+  gap: 10px
+}
+
 .container {
-  position: relative;  // Position relative pour le conteneur
+  position: relative; // Position relative pour le conteneur
   width: 400px; // Ou une largeur fixe, selon votre design
-  height: 160px; // Ou une hauteur fixe, selon votre design
+  height: 200px; // Ou une hauteur fixe, selon votre design
 }
 
 .loader-container {
   width: 400px; // Ou une largeur fixe, selon votre design
-  height: 160px; // Ou une hauteur fixe, selon votre design
+  height: 200px; // Ou une hauteur fixe, selon votre design
   box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
   border-radius: 15px;
   // border: 1px solid black;
@@ -255,4 +288,11 @@ h2 {
   // bottom: 0;
 }
 
+p {
+  margin: 0;
+}
+
+.nationalityFlag {
+  width: 25px;
+}
 </style>
