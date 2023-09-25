@@ -13,7 +13,7 @@
           </thead>
           <tbody>
             <tr>
-              <td v-for="ethnicity in details.ethnicities" :key="ethnicity.label" class="container__table-cell">
+              <td :style="{ 'background-color': calculateBackgroundColor(ethnicity.percentage) }" v-for="ethnicity in details.ethnicities" :key="ethnicity.label" class="container__table-cell">
                 {{ ethnicity.percentage }}
               </td>
             </tr>
@@ -37,6 +37,28 @@ const props = defineProps({
     default: () => { }
   }
 });
+
+const calculateBackgroundColor = (percentage: number) => {
+  let red, green, blue;
+
+  if (percentage <= 10) {
+    // De #f5eace à #d1f5ce
+    const factor = percentage / 10;
+    red = Math.round(245 + (209 - 245) * factor);
+    green = Math.round(234 + (245 - 234) * factor);
+    blue = Math.round(206 + (206 - 206) * factor);
+  } else {
+    // De #d1f5ce à #41943a
+    const factor = (percentage - 10) / 90;
+    red = Math.round(209 + (65 - 209) * factor);
+    green = Math.round(245 + (148 - 245) * factor);
+    blue = Math.round(206 + (58 - 206) * factor);
+  }
+
+  return `rgb(${red}, ${green}, ${blue})`;
+};
+
+
 </script>
 
 <style lang="scss" scoped>

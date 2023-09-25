@@ -1,14 +1,13 @@
 <template>
   <div class="wrapper">
-    <CardComponent class="test" :character="character"/>
-    <array-distribution :data="data"/>
+    <CardComponent class="test" :character="character" />
+    <button class="button" @click="newRandomPnj()">nouveau pnj</button>
+    <div class="distribution"><array-distribution :data="data" /></div>
   </div>
-  <button @click="newRandomPnj()">nouveau pnj</button>
-
 </template>
 
 <script setup lang='ts'>
-import { getRandomCharacter, getEthnicDistributionByNationality  } from '../services/apiService';
+import { getRandomCharacter, getEthnicDistributionByNationality } from '../services/apiService';
 
 const character = ref()
 const data = ref(null);
@@ -20,7 +19,7 @@ onMounted(async () => {
 });
 
 async function newRandomPnj() {
-  character.value = await getRandomCharacter();  
+  character.value = await getRandomCharacter();
 }
 
 </script>
@@ -29,9 +28,24 @@ async function newRandomPnj() {
 .wrapper {
   display: flex;
   justify-content: center;
+  flex-direction: column;
 }
 
 .test {
   height: 192px;
+}
+
+.flex {
+  display: flex;
+
+}
+
+.button {
+  width: 150px;
+  margin: 50px 0;
+}
+
+.distribution {
+  width: 50%;
 }
 </style>

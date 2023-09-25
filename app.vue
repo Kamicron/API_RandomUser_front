@@ -27,6 +27,6 @@ useHead(() => ({
 
 <style lang='scss' scoped>
 .layout {
-  height: 85vh;
+  // height: 85vh;
 }
 </style>

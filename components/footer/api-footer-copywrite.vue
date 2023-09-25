@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import { ref } from 'vue';
 
-const frontendVersion = ref("0.1.2");  // Remplacez par la version actuelle de votre frontend
-const backendVersion = ref("0.1.3");  // Remplacez par la version actuelle de votre backend
+const frontendVersion = ref("0.1.3");
+const backendVersion = ref("0.1.4"); 
 </script>
 
 <template>
