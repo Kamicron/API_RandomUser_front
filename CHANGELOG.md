@@ -9,6 +9,17 @@ This file outlines all the significant changes made to the project. The format i
 - Connection tje API to front
 - Create basic component to test
 
+
+## [0.1.3] - 2023-09-25
+
+### 📦 Added
+- Add new photo
+
+### 🔄 Changed
+- Changes array-distribution array to show distribution with color
+
+
+
 ## [0.1.2] - 2023-09-24
 
 ### 📦 Added
