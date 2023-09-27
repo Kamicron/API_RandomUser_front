@@ -6,9 +6,17 @@ This file outlines all the significant changes made to the project. The format i
 
 ### Added
 - Initial project setup
-- Connection tje API to front
+- Connection the API to front
 - Create basic component to test
 
+## [X.X.X] - XXXX-XX-XX
+
+### 📦 Added
+- Add stats components.
+- Style for button
+
+### 🔄 Changed
+- Modify `api-footer-copywrite` to show changelog on click.
 
 ## [0.1.3] - 2023-09-25
 

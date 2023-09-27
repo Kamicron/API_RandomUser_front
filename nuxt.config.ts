@@ -18,6 +18,7 @@ export default defineNuxtConfig({
                 @import "@/assets/scss/variables/spacing.scss";
                 @import "@/assets/scss/variables/typographie.scss";
                 @import "@/assets/scss/variables/font.scss";
+                @import "@/assets/scss/button.scss";
                 `,
             },
         },

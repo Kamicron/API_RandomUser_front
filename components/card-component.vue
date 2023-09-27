@@ -58,12 +58,6 @@
 </template>
 
 <script setup lang="ts">
-import type { PnjInfo } from '@types';
-
-// import useExperienceLevels from '@/composables/global/pnj/leveling'
-// Utiliser le composable
-// const { getNextLevdelXP, formatNumber } = useExperienceLevels()
-
 const props = defineProps({
   character: {
     type: Object,
