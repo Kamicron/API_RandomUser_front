@@ -14,7 +14,7 @@ export const getRandomCharacter = async () => {
 
 export const getEthnicDistributionByNationality = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/global/information-table/ethnic-distribution-by-nationality');
+    const response = await axios.get('http://localhost:3001/global/information-table/suborigin-distribution-by-origin');
     return response.data;
   } catch (error) {
     console.error('Erreur lors de l\'appel à l\'API :', error);

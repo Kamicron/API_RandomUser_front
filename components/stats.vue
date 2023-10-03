@@ -11,8 +11,8 @@
     </div>
 
     <div class="stats-grid">
-      <stats-cards v-if="stats.nationality" title="Nationalités" :value="formattedNationality" />
-      <stats-cards v-if="stats.ethnicity" title="Ethnies" :value="formattedEthnicity" />
+      <stats-cards v-if="stats.origin" title="Nationalités" :value="formattedOrigin" />
+      <stats-cards v-if="stats.suborigin" title="Ethnies" :value="formattedsuborigin" />
       <stats-cards v-if="stats.photo" title="Photos par ethnies" :value="formattedPhoto" />
 
     </div>
@@ -26,8 +26,8 @@ import { getStats } from '../services/apiService';
 
 const stats = ref({
   gender: 0,
-  ethnicity: 0,
-  nationality: 0,
+  suborigin: 0,
+  origin: 0,
   maxPnj: 0,
   firstname:0,
   lastname: 0,
@@ -39,11 +39,14 @@ onMounted(async () => {
   stats.value = data;
 });
 
+console.log('stats', stats);
+
+
 const formattedMaxPnj = computed(() => stats.value ? stats.value.maxPnj.toLocaleString('fr-FR') : 0);
 
 const formattedGender = computed(() => stats.value ? stats.value.gender.toLocaleString('fr-FR') : 0);
-const formattedEthnicity = computed(() => stats.value ? stats.value.ethnicity.toLocaleString('fr-FR') : 0);
-const formattedNationality = computed(() => stats.value ? stats.value.nationality.toLocaleString('fr-FR') : 0);
+const formattedOrigin = computed(() => stats.value ? stats.value.origin.toLocaleString('fr-FR') : 0);
+const formattedsuborigin = computed(() => stats.value ? stats.value.suborigin.toLocaleString('fr-FR') : 0);
 
 const formattedFirstname = computed(() => stats.value ? stats.value.firstname.toLocaleString('fr-FR') : 0);
 const formattedLastname = computed(() => stats.value ? stats.value.lastname.toLocaleString('fr-FR') : 0);

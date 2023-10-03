@@ -17,6 +17,8 @@ import CardComponent from '/components/card-component.vue';
 onMounted(async () => {
   newRandomPnj()
   data.value = await getEthnicDistributionByNationality();
+  console.log('data.value', data.value);
+  
 });
 
 async function newRandomPnj() {

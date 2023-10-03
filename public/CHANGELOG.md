@@ -9,7 +9,13 @@ This file outlines all the significant changes made to the project. The format i
 - Connection the API to front
 - Create basic component to test
 
-## [X.X.X] - XXXX-XX-XX
+## [0.1.5] - 2023-10-03
+
+### 🐛 Fixed
+- Fixes data with the new database.
+
+
+## [0.1.4] - 2023-09-28
 
 ### 📦 Added
 - Add stats components.

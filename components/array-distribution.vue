@@ -6,14 +6,14 @@
         <table class="container__table">
           <thead>
             <tr>
-              <th v-for="ethnicity in details.ethnicities" :key="ethnicity.label" class="container__table-header">
+              <th v-for="ethnicity in details.suboriginities" :key="ethnicity.label" class="container__table-header">
                 {{ ethnicity.language.display_name_fr }}
               </th>
             </tr>
           </thead>
           <tbody>
             <tr>
-              <td :style="{ 'background-color': calculateBackgroundColor(ethnicity.percentage) }" v-for="ethnicity in details.ethnicities" :key="ethnicity.label" class="container__table-cell">
+              <td :style="{ 'background-color': calculateBackgroundColor(ethnicity.percentage) }" v-for="ethnicity in details.suboriginities" :key="ethnicity.label" class="container__table-cell">
                 {{ ethnicity.percentage }}
               </td>
             </tr>
@@ -37,6 +37,9 @@ const props = defineProps({
     default: () => { }
   }
 });
+
+console.log('props.data', props.data);
+
 
 const calculateBackgroundColor = (percentage: number) => {
   let red, green, blue;

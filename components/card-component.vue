@@ -1,21 +1,21 @@
 <template>
-  <div class="container" :key="forceUpdate">
+  <!-- <div class="container" :key="forceUpdate">
     <div v-if="character !== undefined" class="character-card">
-      <!-- <div v-if="1 !== 1 " class="character-card"> -->
       <div class="wrapper">
         <div class="card-left">
           <img
-            :src="`/img/pnj/${props.character.personalInfo.ethnicity.label.toLowerCase()}/${props.character.personalInfo.gender.label.toLowerCase()}/${props.character.photo.src}.png`"
+            :src="`/img/pnj/${props.character.personalInfo.lineage.suborigin.label.toLowerCase()}/${props.character.personalInfo.gender.label.toLowerCase()}/${props.character.photo.src}.png`"
             alt="test" class="character-image" />
         </div>
         <div class="card-right">
           <div class="top-section">
             <h2>{{ character.personalInfo.firstname }} {{ character.personalInfo.lastname }}</h2>
             <div class="flex">
-              <div class="row">{{ character.personalInfo.ethnicity.display_name }}</div>
+              <div class="row">{{ character.personalInfo.lineage.suborigin.display_name }}</div>
               <div class="row">
-                <img class="nationalityFlag" :src="`img/flags/${character.personalInfo.nationality.flag}.png`" :alt="`icon of ${character.personalInfo.nationality.flag}`"/>
-                {{ character.personalInfo.nationality.display_name_fr }}
+                <img class="nationalityFlag" :src="`img/flags/${character.personalInfo.lineage.origin.flag}.png`"
+                  :alt="`icon of ${character.personalInfo.lineage.origin.flag}`" />
+                {{ character.personalInfo.lineage.origin.display_name_fr }}
               </div>
               <div class="row">
                 <fa class="icon" v-if="character.personalInfo.gender.label === 'woman'" icon="venus" type="regular" />
@@ -29,27 +29,44 @@
             </div>
           </div>
         </div>
-        <!-- <div class="level">
-        <div class="level__value">{{ character.level }}</div>
-        <div class="level__exp">{{ formatNumber(character.exp) }} / {{ formatNumber(getNextLevelXP(character.level)) }}
-        </div>
-      </div> -->
       </div>
-      <div class="bottom-section">
-        <div class="column stats">
-          <!-- <PnjProgressBar :progress-bar="strength" />
-        <PnjProgressBar :progress-bar="agility" />
-        <PnjProgressBar :progress-bar="stealth" />
-        <PnjProgressBar :progress-bar="intelligence" /> -->
-        </div>
-        <div class="column stats">
-          <!-- <PnjProgressBar :progress-bar="charisma" />
-        <PnjProgressBar :progress-bar="survival" />
-        <PnjProgressBar :progress-bar="accuracy" />
-        <PnjProgressBar :progress-bar="perception" /> -->
-        </div>
-      </div>
+    </div>
+    <div v-else class="loader-container">
+      <loader :isLoading="character" />
+    </div>
+  </div> -->
 
+  <div class="container" :key="forceUpdate">
+    <div v-if="character !== undefined" class="character-card">
+      <div class="wrapper">
+        <div class="card-left">
+          <img
+            :src="`/img/pnj/${props.character.personalInfo.lineage.suborigin.label.toLowerCase()}/${props.character.personalInfo.gender[0].label.toLowerCase()}/${props.character.photo.src}.png`"
+            alt="test" class="character-image" />
+        </div>
+        <div class="card-right">
+          <div class="top-section">
+            <h2>{{ character.personalInfo.firstname }} {{ character.personalInfo.lastname }}</h2>
+            <div class="flex">
+              <div class="row">{{ character.personalInfo.lineage.suborigin.display_name }}</div>
+              <div class="row">
+                <img class="nationalityFlag" :src="`img/flags/${character.personalInfo.lineage.origin[0].flag}.png`"
+                  :alt="`icon of ${character.personalInfo.lineage.origin[0].flag}`" />
+                {{ character.personalInfo.lineage.origin[0].display_name_fr }}
+              </div>
+              <div class="row">
+                <fa class="icon" v-if="character.personalInfo.gender.label === 'woman'" icon="venus" type="regular" />
+                <fa class="icon" v-if="character.personalInfo.gender.label === 'man'" icon="mars" type="regular" />
+                <p>{{ character.personalInfo.gender.display_name }}</p>
+              </div>
+              <div class="row">
+                <fa class="icon" :icon="currentCharacter.work.logo" type="regular" />
+                <p>{{ character.work.displayName }}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
     <div v-else class="loader-container">
       <loader :isLoading="character" />
@@ -65,7 +82,10 @@ const props = defineProps({
   },
 });
 
+
 const currentCharacter = ref(props.character);
+console.log('currentCharacter', currentCharacter);
+
 
 const forceUpdate = ref(0);
 
