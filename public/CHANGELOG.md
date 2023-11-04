@@ -9,6 +9,13 @@ This file outlines all the significant changes made to the project. The format i
 - Connection the API to front
 - Create basic component to test
 
+
+## [0.1.6] - 2023-11-04
+
+### 📦 Added
+- Add alert box.
+
+
 ## [0.1.5] - 2023-10-03
 
 ### 🐛 Fixed
