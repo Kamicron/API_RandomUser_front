@@ -28,5 +28,7 @@ useHead(() => ({
 <style lang='scss' scoped>
 .layout {
   // height: 85vh;
+  max-width: 1200px;
+  margin: auto;
 }
 </style>

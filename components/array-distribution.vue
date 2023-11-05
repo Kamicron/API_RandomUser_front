@@ -2,12 +2,12 @@
   <div class="container">
     <div v-if="data && Object.keys(data).length > 0">
       <div v-for="(details, country) in data" :key="country">
-        <h2 class="container__title">{{ details.language.display_name_fr }}</h2>
+        <h2 class="container__title">{{ details.language.fr }}</h2>
         <table class="container__table">
           <thead>
             <tr>
               <th v-for="ethnicity in details.suboriginities" :key="ethnicity.label" class="container__table-header">
-                {{ ethnicity.language.display_name_fr }}
+                {{ ethnicity.language.fr }}
               </th>
             </tr>
           </thead>

@@ -9,6 +9,28 @@ This file outlines all the significant changes made to the project. The format i
 - Connection the API to front
 - Create basic component to test
 
+## [0.1.8] - 2023-11-05
+
+### 📦 Added
+- New features that have been added.
+- Selector attribute for the pnj generator on main page
+
+### 🔄 Changed
+- Changes function `getRandomCharacter` to accept paramaters.
+
+### ⚠️ Deprecated
+- Features that were once stable but are no longer recommended and will be removed in future versions.
+
+### 🗑️ Removed
+- Features that have been deprecated or outdated and are now removed.
+
+### 🐛 Fixed
+- Fix display with new translation features.
+
+### 🔒 Security
+- Implemented any security enhancements.
+
+
 ## [0.1.7] - 2023-11-04
 
 ### 📦 Added

@@ -1,10 +1,21 @@
 <template>
   <div class="wrapper">
-    <CardComponent class="test" :character="character" />
-    <button class="button" @click="newRandomPnj()">nouveau pnj</button>
+    <div class="pnj_generator">
+      <CardComponent class="test" :character="character" />
+      <div class="selector">
+        <dropdown option="system" @update:selected="handleSystem" />
+        <dropdown option="species" @update:selected="handleSpecies" />
+        <dropdown option="gender" @update:selected="handleGender" />
+        <dropdown option="origin" @update:selected="handleOrigin" />
+        <dropdown option="suborigin" @update:selected="handleSuborigin" />
+        <button class="button" @click="newRandomPnj()">nouveau pnj</button>
+      </div>
+
+    </div>
+
     <Alert ref="alertRef" />
     <div class="distribution"><array-distribution :data="data" /></div>
-    <stats />
+    <stats class="stats"/>
   </div>
 </template>
 
@@ -17,6 +28,38 @@ import Alert from '/components/global/alert/alert.vue';  // Importez simplement 
 const character = ref()
 const data = ref(null);
 const alertRef = ref<typeof Alert | null>(null);
+const selectedGender = ref();
+const selectedOrigin = ref();
+const selectedSuborigin = ref();
+const selectedSystem = ref();
+const selectedSpecies = ref();
+
+const handleSystem = (value) => {
+  selectedSystem.value = value;
+  console.log('Valeur sélectionnée:', value);
+};
+
+const handleSpecies = (value) => {
+  selectedSpecies.value = value;
+  console.log('Valeur sélectionnée:', value);
+};
+
+
+const handleGender = (value) => {
+  selectedGender.value = value;
+  console.log('Valeur sélectionnée:', value);
+};
+
+const handleOrigin = (value) => {
+  selectedOrigin.value = value;
+  console.log('Valeur sélectionnée:', value);
+};
+
+const handleSuborigin = (value) => {
+  selectedSuborigin.value = value;
+  console.log('Valeur sélectionnée:', value);
+};
+
 
 function isAxiosError(error: unknown): error is AxiosError {
   return error instanceof AxiosError;
@@ -31,8 +74,17 @@ onMounted(async () => {
 });
 
 async function newRandomPnj() {
+  const params = {};
+  if (selectedGender.value?.id_gender) params.gender = selectedGender.value.id_gender;
+  if (selectedOrigin.value?.id_origin) params.origin = selectedOrigin.value.id_origin;
+  if (selectedSuborigin.value?.id_suborigin) params.suborigin = selectedSuborigin.value.id_suborigin;
+  if (selectedSystem.value?.id_system) params.system = selectedSystem.value.id_system;
+  if (selectedSpecies.value?.id_species) params.species = selectedSpecies.value.id_species;
+
   try {
-    character.value = await getRandomCharacter();
+    // Appelez `getRandomCharacter` avec les paramètres définis
+    character.value = await getRandomCharacter(params);
+
     alertRef.value?.addMessage('success', 'Nouveau PNJ généré avec succès!');
   } catch (error) {
     console.error('Erreur dans le try/catch', error);
@@ -57,9 +109,7 @@ async function newRandomPnj() {
   flex-direction: column;
 }
 
-.test {
-  height: 192px;
-}
+.test {}
 
 .flex {
   display: flex;
@@ -94,8 +144,23 @@ async function newRandomPnj() {
   }
 }
 
+.pnj_generator {
+  display: flex;
+
+  .selector {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin: 20px;
+    width: 100%;
+  }
+}
+
+.stats {
+  width: 100%;
+}
 
 .distribution {
-  width: 50%;
+  width: 100%;
 }
 </style>
