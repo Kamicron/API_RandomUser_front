@@ -10,12 +10,13 @@
 
 <script setup lang='ts'>
 import { ref, defineExpose } from 'vue';
+// import { Message } from '../types/global/alert'
 
-interface Message {
-  id: number;
-  text: string;
-  type: 'success' | 'error';
-}
+export interface Message {
+    id: number;
+    text: string;
+    type: 'success' | 'error';
+  }
 
 const messages = ref<Array<Message>>([]);
 let nextId = 1;

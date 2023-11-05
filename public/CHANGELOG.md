@@ -9,6 +9,14 @@ This file outlines all the significant changes made to the project. The format i
 - Connection the API to front
 - Create basic component to test
 
+## [0.1.7] - 2023-11-04
+
+### 📦 Added
+- Add a dropbox component.
+
+### 🔄 Changed
+- variable "display_name_fr" to match with backend.
+
 
 ## [0.1.6] - 2023-11-04
 

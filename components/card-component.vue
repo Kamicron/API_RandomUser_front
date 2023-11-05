@@ -48,16 +48,16 @@
           <div class="top-section">
             <h2>{{ character.personalInfo.firstname }} {{ character.personalInfo.lastname }}</h2>
             <div class="flex">
-              <div class="row">{{ character.personalInfo.lineage.suborigin.display_name }}</div>
+              <div class="row">{{ character.personalInfo.lineage.suborigin.display_name_fr }}</div>
               <div class="row">
                 <img class="nationalityFlag" :src="`img/flags/${character.personalInfo.lineage.origin[0].flag}.png`"
                   :alt="`icon of ${character.personalInfo.lineage.origin[0].flag}`" />
                 {{ character.personalInfo.lineage.origin[0].display_name_fr }}
               </div>
               <div class="row">
-                <fa class="icon" v-if="character.personalInfo.gender.label === 'woman'" icon="venus" type="regular" />
-                <fa class="icon" v-if="character.personalInfo.gender.label === 'man'" icon="mars" type="regular" />
-                <p>{{ character.personalInfo.gender.display_name }}</p>
+                <fa class="icon" v-if="character.personalInfo.gender[0].label === 'woman'" icon="venus" type="regular" />
+                <fa class="icon" v-if="character.personalInfo.gender[0].label === 'man'" icon="mars" type="regular" />
+                <p>{{ character.personalInfo.gender[0].display_name_fr }}</p>
               </div>
               <div class="row">
                 <fa class="icon" :icon="currentCharacter.work.logo" type="regular" />
@@ -93,18 +93,18 @@ watch(() => props.character, async (newVal) => {
   currentCharacter.value = newVal;
   forceUpdate.value += 1;
   await nextTick();
-  console.log('Logo should be updated now.');
+  console.log('props.character',props.character);
 });
 
 
 // Juste pour le débogage
 onMounted(() => {
-  watch(() => currentCharacter.value, (newVal) => {
-    if (newVal) {
-      console.log('currentCharacter updated:', newVal.work.logo_work);
-    }
-  }, { immediate: true });
 });
+watch(() => currentCharacter.value, (newVal) => {
+  if (newVal) {
+    console.log('currentCharacter updated:', newVal.work.logo_work);
+  }
+}, { immediate: true });
 
 const loadingData = ref(false);
 

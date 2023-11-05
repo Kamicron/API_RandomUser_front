@@ -5,7 +5,13 @@ declare module '@/components/alert.vue' {
   interface AlertMethods {
     addMessage: (type: 'success' | 'error', text?: string) => void;
   }
+  
 
-  const component: DefineComponent<{}, AlertMethods, any>;
+
+  const component: DefineComponent<{}, AlertMethods ,any>;
   export default component;
+
+
 }
+
+
