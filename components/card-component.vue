@@ -121,14 +121,14 @@ h1 {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-around;
-  padding: 20px;
+  padding: $spacing-lg;
 }
 
 .character-card {
   width: 400px;
   background: $card_color_main;
-  box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  box-shadow: 0px $spacing-sm $spacing-lg -$spacing-xxs rgba(0, 0, 0, 0.1);
+  border-radius: $spacing-md;
   overflow: hidden;
   display: flex;
   flex-direction: column;
@@ -136,7 +136,7 @@ h1 {
 }
 
 .character-card:hover {
-  transform: translateY(-5px);
+  transform: translateY(-$spacing-xxs);
 }
 
 .card-left {
@@ -158,13 +158,13 @@ h1 {
 }
 
 h2 {
-  margin-bottom: 10px;
+  margin-bottom: $spacing-sm;
   color: #333;
 }
 
 p {
   color: #666;
-  margin: 10px 0;
+  margin: $spacing-sm 0;
 }
 
 .top-section {
@@ -173,8 +173,8 @@ p {
 
 .bottom-section {
   display: flex;
-  gap: 20px;
-  padding: 0 10px;
+  gap: $spacing-lg;
+  padding: 0 $spacing-sm;
 }
 
 .column {
@@ -225,7 +225,7 @@ h2 {
 
 .icon {
   color: $dark-gray-color;
-  width: 20px;
+  width: $spacing-lg;
 }
 
 .align-end {
@@ -239,7 +239,7 @@ h2 {
 .flex {
   display: flex;
   flex-direction: column;
-  gap: 10px
+  gap: $spacing-sm
 }
 
 .container {
@@ -251,10 +251,10 @@ h2 {
 .loader-container {
   width: 400px; // Ou une largeur fixe, selon votre design
   height: 200px; // Ou une hauteur fixe, selon votre design
-  box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, 0.1);
-  border-radius: 15px;
+  box-shadow: 0px $spacing-sm $spacing-lg -$spacing-xxs rgba(0, 0, 0, 0.1);
+  border-radius: $spacing-md;
   // border: 1px solid black;
-  margin: 20px;
+  // margin: 20px;
   background-color: $card_color_main;
 
   // position: absolute; // Position absolue pour le loader

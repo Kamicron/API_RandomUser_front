@@ -68,7 +68,7 @@ const calculateBackgroundColor = (percentage: number) => {
 .container {
   width: 100%;
   // background-color: $card_color_main;
-  padding: $spacing-md;
+  padding: $spacing-md 0;
   font-family: $font-family-roboto;
 
   &__title {
@@ -81,14 +81,25 @@ const calculateBackgroundColor = (percentage: number) => {
 
   &__table {
     width: 100%;
-    border-collapse: collapse;
     margin-bottom: $spacing-xl;
+    overflow: hidden;
+    border-collapse: separate;
+    border-spacing: 0;
+    border-radius: 5px;
+    border: 1px solid $medium-gray-color;
 
     &-cell,
     &-header {
+      border-right: 1px solid $medium-gray-color;
+      border-bottom: 1px solid $medium-gray-color;
+
       padding: $spacing-md;
-      border: 1px solid $medium-gray-color;
       text-align: center;
+      border-radius: 0;
+
+      &:last-child {
+        border-right: 0; // Enlever la bordure droite pour le dernier élément
+      }
     }
 
     &-header {
@@ -101,6 +112,31 @@ const calculateBackgroundColor = (percentage: number) => {
       background-color: $white-color;
       color: $black-color;
     }
+
+    // thead tr:first-child th:first-child {
+    //   border-top-left-radius: 5px;
+    //   border-left: 1px solid $medium-gray-color; // Ajouter une bordure gauche
+    //   border-top: 1px solid $medium-gray-color; // Ajouter une bordure en haut
+    // }
+
+    // thead tr:first-child th:last-child {
+    //   border-top-right-radius: 5px;
+    //   border-top: 1px solid $medium-gray-color; // Ajouter une bordure en haut
+    // }
+
+    // tbody tr:last-child td:first-child {
+    //   border-bottom-left-radius: 5px;
+    //   border-left: 1px solid $medium-gray-color; // Ajouter une bordure gauche
+    // }
+
+    // tbody tr:last-child td:last-child {
+    //   border-bottom-right-radius: 5px;
+    // }
+
+    // // Enlever la bordure du bas pour la dernière ligne pour éviter un double bord
+    // tbody tr:last-child td {
+    //   border-bottom: 0;
+    // }
   }
 
   &__no-data {

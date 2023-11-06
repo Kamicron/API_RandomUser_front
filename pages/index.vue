@@ -3,11 +3,11 @@
     <div class="pnj_generator">
       <CardComponent class="test" :character="character" />
       <div class="selector">
-        <dropdown option="system" @update:selected="handleSystem" />
-        <dropdown option="species" @update:selected="handleSpecies" />
-        <dropdown option="gender" @update:selected="handleGender" />
-        <dropdown option="origin" @update:selected="handleOrigin" />
-        <dropdown option="suborigin" @update:selected="handleSuborigin" />
+        <dropdown :option="{ value:'system', display_name:'Système'}" @update:selected="handleSystem" />
+        <dropdown :option="{ value:'species', display_name:'Espèces'}" @update:selected="handleSpecies" />
+        <dropdown :option="{ value:'gender', display_name:'Genre'}" @update:selected="handleGender" />
+        <dropdown :option="{ value:'origin', display_name:'Origine'}" @update:selected="handleOrigin" />
+        <dropdown :option="{ value:'suborigin', display_name:'Sous-origine'}" @update:selected="handleSuborigin" />
         <button class="button" @click="newRandomPnj()">nouveau pnj</button>
       </div>
 
@@ -109,16 +109,17 @@ async function newRandomPnj() {
   flex-direction: column;
 }
 
-.test {}
+.test {
+  margin: 20px 0;
+}
 
 .flex {
   display: flex;
-
 }
 
 .button {
   width: auto;
-  margin: 50px 0;
+  margin: 10px 0;
   padding: 10px 20px;
   background-color: $main-color; // Couleur de fond rouge
   color: white; // Couleur du texte blanc
@@ -146,12 +147,16 @@ async function newRandomPnj() {
 
 .pnj_generator {
   display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: $spacing-lg;
+
 
   .selector {
     display: flex;
     flex-direction: column;
-    gap: 20px;
-    margin: 20px;
+    gap: $spacing-lg;
+    margin: $spacing-lg 0;
     width: 100%;
   }
 }

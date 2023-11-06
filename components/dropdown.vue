@@ -1,5 +1,6 @@
 <template>
   <div class="select-wrapper" @click.stop="toggleSelect">
+    <label>{{ option.display_name }}</label>
     <div class="select-display">
       {{ selectedLabel }}
       <fa icon="chevron-down" :class="{ 'open': isOpen }" />
@@ -21,9 +22,9 @@ import { OptionItem, SelectedValue } from '../types/global/option';
 
 const props = defineProps({
   option: {
-    type: String,
-    default: '' // Fournir une chaîne vide comme valeur par défaut
-  }
+    type: Object as () => { value: string , display_name: string },
+    required: true,
+  },
 });
 
 
@@ -41,7 +42,7 @@ const fetchData = async (option: SelectedValue) => {
   try {
     const response = await fetch(`${apiUrl}${option}`);
     const data = await response.json();
-    optionsList.value = [{ value: null, language: { fr: 'Choisir une option' } }, ...(data[option] || [])];    
+    optionsList.value = [{ value: null, language: { fr: 'Choisir une option' } }, ...(data[props.option.value] || [])];
   } catch (error) {
     console.error('Erreur lors de la récupération des données:', error);
   }
@@ -70,8 +71,8 @@ const selectItem = (item) => {
   selectedLabel.value = item.language.fr;
   isOpen.value = false;
   console.log('item.value', item.label);
-  
-  emit('update:selected', item); 
+
+  emit('update:selected', item);
 };
 
 // Optionnel: fermer le menu déroulant si l'utilisateur clique en dehors
@@ -83,7 +84,7 @@ const closeSelect = (event: MouseEvent) => {
 
 
 onMounted(() => {
-  fetchData(props.option);
+  fetchData(props.option.value);
   document.addEventListener('dropdownOpened', handleDropdownOpened);
   window.addEventListener('click', closeSelect);
 });
@@ -99,6 +100,14 @@ onUnmounted(() => {
 .select-wrapper {
   position: relative;
   font-family: sans-serif; // Choisissez la police que vous préférez
+
+
+  label {
+  font-size: $font-family-dosis;
+  color: $secondary-color;
+  margin-bottom: $spacing-xs;
+}
+
 
   .select-display {
     padding: 0.5em 1em;
@@ -142,11 +151,13 @@ onUnmounted(() => {
     }
 
     &::-webkit-scrollbar-thumb {
-      background: lighten($secondary-color, 5%);; // Couleur de la partie défilable (le pouce)
+      background: lighten($secondary-color, 5%);
+      ; // Couleur de la partie défilable (le pouce)
       border-radius: 6px; // Arrondir les coins du pouce
 
       &:hover {
-        background: darken($secondary-color, 5%);; // Couleur du pouce lors du survol
+        background: darken($secondary-color, 5%);
+        ; // Couleur du pouce lors du survol
       }
     }
 
