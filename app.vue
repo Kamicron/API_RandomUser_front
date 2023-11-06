@@ -1,5 +1,9 @@
 <template>
   <div class="layout">
+    <header>
+      <HeaderMenu />
+      <HeaderAuthentification />
+    </header>
     <NuxtPage />
   </div>
   <FooterApiFooter />

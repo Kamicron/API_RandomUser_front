@@ -4,7 +4,7 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   components: true,
   plugins: [
-    '~/plugins/fontawesome.js'
+    '~/plugins/fontawesome.js',
   ],
   css: [
     '~/assets/normalize.css',
@@ -23,6 +23,6 @@ export default defineNuxtConfig({
             },
         },
     },
-  },
+  }
   
 })

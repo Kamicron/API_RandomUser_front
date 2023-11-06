@@ -18,8 +18,9 @@
 
 
 <script setup lang='ts'>
-import { OptionItem, SelectedValue } from '../types/global/option';
-
+// import { OptionItem, SelectedValue } from '../types/global/option';
+// import { OptionItem } from '../types/global/option';
+import * as OptionTypes from '../types/global/option';
 const props = defineProps({
   option: {
     type: Object as () => { value: string , display_name: string },
@@ -30,7 +31,7 @@ const props = defineProps({
 
 const emit = defineEmits(['update:selected']);
 
-const optionsList = ref<OptionItem[]>([]);
+const optionsList = ref<OptionTypes.OptionItem[]>([]);
 const selectedValue = ref(null);
 const selectedLabel = ref('Choisir une option'); // Texte par défaut
 const isOpen = ref(false);
@@ -38,7 +39,7 @@ const dropdownId = `dropdown-${props.option}-${Date.now()}`;
 
 const apiUrl = 'http://localhost:3001/global/information-table/';
 
-const fetchData = async (option: SelectedValue) => {
+const fetchData = async (option: OptionTypes.SelectedValue) => {
   try {
     const response = await fetch(`${apiUrl}${option}`);
     const data = await response.json();
