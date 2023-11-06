@@ -6,19 +6,23 @@ export default defineNuxtConfig({
   plugins: [
     '~/plugins/fontawesome.js'
   ],
-  // vite: {
-  //   css: {
-  //       preprocessorOptions: {
-  //           scss: {
-  //               additionalData: `
-  //               @import "@/assets/scss/variables/colors.scss";
-  //               @import "@/assets/scss/variables/spacing.scss";
-  //               @import "@/assets/scss/variables/typographie.scss";
-  //               @import "@/assets/scss/variables/font.scss";
-  //               `,
-  //           },
-  //       },
-  //   },
-  // },
+  css: [
+    '~/assets/normalize.css',
+  ],
+  vite: {
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `
+                @import "@/assets/scss/variables/colors.scss";
+                @import "@/assets/scss/variables/spacing.scss";
+                @import "@/assets/scss/variables/typographie.scss";
+                @import "@/assets/scss/variables/font.scss";
+                @import "@/assets/scss/button.scss";
+                `,
+            },
+        },
+    },
+  },
   
 })

@@ -1,0 +1,28 @@
+.button {
+  width: auto;
+  margin: 50px 0;
+  padding: 10px 20px;
+  background-color: $main-color; // Couleur de fond rouge
+  color: white; // Couleur du texte blanc
+  border: none;
+  border-radius: $spacing-xxs; // Coins arrondis
+  cursor: pointer;
+  transition: all 0.3s ease; // Effet de transition
+  font-family: $font-family-dosis;
+  text-transform: uppercase;
+  letter-spacing: $spacing-xs;
+  font-weight: $font-weight-semibold;
+
+  &:hover {
+    background-color: $secondary-color; // Couleur de fond quand survolé
+  }
+
+  &:active {
+    transform: scale(0.98); // Réduction de la taille quand cliqué
+  }
+
+  &:disabled {
+    background-color: $dark-gray-color; // Couleur de fond quand désactivé
+    cursor: not-allowed;
+  }
+}
