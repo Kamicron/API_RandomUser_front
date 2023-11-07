@@ -9,6 +9,17 @@ This file outlines all the significant changes made to the project. The format i
 - Connection the API to front
 - Create basic component to test
 
+## [0.2.0] - 2023-11-08
+
+### 📦 Added
+- add create account and login.
+- add new modal component
+- add header menu with menu and connexion services (no stylish)
+
+### 🔄 Changed
+- fix css error on main page.
+
+
 ## [0.1.8] - 2023-11-05
 
 ### 📦 Added

@@ -1,8 +1,8 @@
 <script setup lang='ts'>
 import MarkdownIt from 'markdown-it';
 
-const frontendVersion = ref("0.1.8");
-const backendVersion = ref("0.1.9"); 
+const frontendVersion = ref("0.2.0");
+const backendVersion = ref("0.2.0"); 
 
 const markdownContent = ref("");
 const parsedHtml = ref("");
