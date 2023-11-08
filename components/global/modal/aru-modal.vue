@@ -1,11 +1,14 @@
 <template>
   <Teleport to="body">
     <Transition name="modal">
-      <div v-if="isOpen" ref="modalMask" class="modal-mask" :style="`--max-width: ${maxWidth}`" @mousedown="closeModalOutside">
-        <div :class="['modal-wrapper', confirmationStyle ? 'confirmationStyle' : '']" @mousedown.stop>
+      <div v-if="isOpen" ref="modalMask" class="modal-mask" :style="`--max-width: ${maxWidth}`"
+        @mousedown="closeModalOutside">
+        <div :style="`max-width: ${maxWidth}`" :class="['modal-wrapper', confirmationStyle ? 'confirmationStyle' : '']" @mousedown.stop>
           <div class="modal-container">
             <h5>{{ refTitle }}</h5>
-            <button class="modal-close-button" @click="closeModal"><fa icon="circle-xmark" /></button>
+            <button class="modal-close-button" @click="closeModal">
+              <fa icon="circle-xmark" />
+            </button>
             <div class="modal-content">
               <slot></slot>
             </div>
@@ -41,6 +44,7 @@ const props = defineProps({
 })
 
 const refTitle = ref<string>(props.title)
+console.log('props.maxWidth', props.maxWidth);
 
 const modalMask = ref<HTMLElement | null>(null)
 const emitEvent = defineEmits(['close'])
@@ -89,11 +93,21 @@ const closeModalOutside = (event: MouseEvent) => {
   box-shadow: 10px 10px 8px rgba(0, 0, 0, 0.5);
   border-radius: 3px;
   transition: all 0.3s ease;
+  padding-top: 10px;
+
+
+  .modal-container {
+
+    h5 {
+      margin-top: 0;
+    }
+  }
 }
 
 .confirmationStyle {
   width: auto;
 }
+
 .modal-close-button {
   position: absolute;
   right: 0;
@@ -102,6 +116,7 @@ const closeModalOutside = (event: MouseEvent) => {
   border: none;
   font-size: 20px;
   margin: 5px 6px;
+  cursor: pointer;
 }
 
 .modal-content {
@@ -110,7 +125,9 @@ const closeModalOutside = (event: MouseEvent) => {
   // overflow: visible;
   margin: 20px 0;
   padding: 5px;
+  position: relative;
 }
+
 .modal-enter-from {
   opacity: 0;
 }
@@ -135,5 +152,4 @@ h5 {
   text-transform: none;
   margin-bottom: 20px;
   padding-right: 25px;
-}
-</style>
+}</style>

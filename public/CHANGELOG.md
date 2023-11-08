@@ -9,7 +9,19 @@ This file outlines all the significant changes made to the project. The format i
 - Connection the API to front
 - Create basic component to test
 
-## [0.2.0] - 2023-11-08
+## [2.0.1] - 2023-11-08
+
+### 📦 Added
+- add new input components.
+
+### 🔄 Changed
+- titles style.
+
+
+### 🔒 Security
+- Implement variable to address and port.
+
+## [0.2.0] - 2023-11-07
 
 ### 📦 Added
 - add create account and login.

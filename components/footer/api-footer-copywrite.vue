@@ -2,7 +2,7 @@
 import MarkdownIt from 'markdown-it';
 const config = useRuntimeConfig();
 
-const frontendVersion = ref("0.2.0");
+const frontendVersion = ref("0.2.1");
 const backendVersion = ref("0.2.0"); 
 
 const markdownContent = ref("");

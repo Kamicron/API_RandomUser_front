@@ -1,0 +1,47 @@
+// Titres principaux avec couleur principale et plus grand poids
+h1 {
+  font-size: $font-size-5xl;
+  font-weight: $font-weight-bold;
+  color: $main-color;
+  margin-bottom: $spacing-md;
+}
+
+// Sous-titres avec une taille un peu plus petite et un poids moyen
+h2 {
+  font-size: $font-size-4xl;
+  font-weight: $font-weight-semibold;
+  color: $secondary-color;
+  margin-bottom: $spacing-sm;
+}
+
+// Titres de section avec une taille moyenne et un poids régulier
+h3 {
+  font-size: $font-size-3xl;
+  font-weight: $font-weight-medium;
+  color: $dark-gray-color;
+  margin-bottom: $spacing-xs;
+}
+
+// Sous-sections ou titres intermédiaires
+h4 {
+  font-size: $font-size-2xl; 
+  font-weight: $font-weight-medium;
+  color: $secondary-color; 
+  margin-bottom: $spacing-xs;
+}
+
+// Titres moins importants ou légendes
+h5 {
+  font-size: $font-size-xl;
+  font-weight: $font-weight-regular;
+  color: $dark-gray-color;
+  margin-bottom: $spacing-xs;
+}
+
+// Titres secondaires ou annotations
+h6 {
+  font-size: $font-size-lg;
+  font-weight: $font-weight-light;
+  color: $black-color;
+  margin-bottom: $spacing-xxs;
+}

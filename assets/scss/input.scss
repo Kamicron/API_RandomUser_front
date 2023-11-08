@@ -1,0 +1,23 @@
+// label {
+//   font-size: $font-size-base; // Assurez-vous que la taille de la police est appropriée pour les labels
+//   color: $secondary-color;
+//   margin-bottom: $spacing-xs;
+// }
+
+// input {
+//   padding: 0.5em 1em;
+//   border: 1px solid $dark-gray-color; // Même bordure que .select-display
+//   border-radius: 0.25em; // Mêmes bordures arrondies
+//   background-color: $secondary-color;
+//   color: $white-color; // Texte blanc
+//   cursor: text; // Curseur texte pour l'input
+
+//   &:focus {
+//     outline: none; // Retire le contour par défaut lors du focus
+//     box-shadow: 0 0 0 2px $main-color; // Ajoute un ombrage pour indiquer le focus
+//   }
+
+//   &::placeholder {
+//     color: lighten($white-color, 20%); // Couleur plus claire pour le placeholder
+//   }
+// }

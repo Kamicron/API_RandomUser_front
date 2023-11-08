@@ -4,24 +4,24 @@
     <Alert ref="alertRef" />
 
     <!-- Modal Inscription -->
-    <ModalAruModal :is-open="isModalInscriptionOpen" title="Inscription"
+    <ModalAruModal max-width="500px" :is-open="isModalInscriptionOpen" title="Inscription"
       @close="closeModalInscription">
-      <form @submit.prevent="handleInscription">
-        <input type="text" v-model="user.login" placeholder="Nom d'utilisateur" required />
-        <input type="email" v-model="user.email" placeholder="Email" required />
-        <input type="password" v-model="user.password" placeholder="Mot de passe" required />
-        <button type="submit">S'inscrire</button>
+      <form class="formulaire" @submit.prevent="handleInscription">
+        <InputAruInput type="text" label="Login" v-model="user.login" required :icon="{name:'home', type:'regular'}" error="Ceci est une erreure" placeholder="login"/>
+        <InputAruInput type="email" label="Email" v-model="user.email" required :icon="{name:'home', type:'regular'}" error="Ceci est une erreure" placeholder="email"/>
+        <InputAruInput type="password" label="Mor de passe" v-model="user.password" required :icon="{name:'home', type:'regular'}" error="Ceci est une erreure" placeholder="Mot de passe"/>
+        <button class="button" type="submit">S'inscrire</button>
       </form>
     </ModalAruModal>
 
 
     <!-- Modal Connexion -->
-    <ModalAruModal :is-open="isModalConnexionOpen" title="Connexion"
+    <ModalAruModal max-width="500px" :is-open="isModalConnexionOpen" title="Connexion"
       @close="closeModalConnexion">
-        <form @submit.prevent="handleLogin">
-          <input type="email" v-model="credentials.email" placeholder="Email" required />
-          <input type="password" v-model="credentials.password" placeholder="Mot de passe" required />
-          <button type="submit">Se connecter</button>
+        <form class="formulaire" @submit.prevent="handleLogin" novalidate >
+          <InputAruInput type="email" label="Email" v-model="credentials.email" required :icon="{name:'home', type:'regular'}" :error="errorMessages.email" placeholder="adresse mail"/>
+          <InputAruInput type="password" label="Mot de passe" v-model="credentials.password" required :icon="{name:'home', type:'regular'}" :error="errorMessages.password" placeholder="mot de passe"/>
+          <button class="button" type="submit">Se connecter</button>
         </form>
       </ModalAruModal>
 
@@ -81,6 +81,32 @@ const credentials = ref({
   password: '',
 });
 
+
+const errorMessages = ref({
+  email: '',
+  password: '',
+});
+
+const validateEmail = (email) => {
+
+  console.log('email', email);
+  
+  if (!email) {
+    return 'Le champ Email est requis.';
+  } else if (!email.includes('@') || !email.includes('.')) {
+    return 'Le format de l\'email est incorrect.';
+  }
+  return '';
+};
+
+const validatePassword = (password) => {
+  if (!password) {
+    return 'Le champ Mot de passe est requis.';
+  }
+  // Ajoutez d'autres validations si nécessaire.
+  return '';
+};
+
 // Fonction pour fermer le dialogue si aucune erreur n'est survenue
 async function trySubmitForm(submitFunction: () => Promise<boolean>) {
   const isSuccessful = await submitFunction();
@@ -109,6 +135,8 @@ const handleInscription = async () => {
 
 // Gestionnaire d'événements pour le formulaire de connexion
 const handleLogin = async () => {
+  errorMessages.value.email = validateEmail(credentials.value.email);
+  errorMessages.value.password = validatePassword(credentials.value.password);
   const isSuccessful = await trySubmitForm(async () => {
     try {
       const response = await axios.post(`http://${config.public.backBaseUrl}:${config.public.backPort}/users/connexion`, credentials.value);
@@ -146,5 +174,10 @@ onMounted(loadUserFromSession);
 </script>
 
 <style lang="scss" scoped>
-// Votre CSS ici pour styliser le formulaire
+.formulaire {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: $spacing-sm;
+}
 </style>

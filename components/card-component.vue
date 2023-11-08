@@ -127,7 +127,7 @@ h1 {
 .character-card {
   width: 400px;
   background: $card_color_main;
-  box-shadow: 0px $spacing-sm $spacing-lg -$spacing-xxs rgba(0, 0, 0, 0.1);
+  box-shadow: 0px $spacing-sm $spacing-lg $spacing-xxs rgba(0, 0, 0, 0.1);
   border-radius: $spacing-md;
   overflow: hidden;
   display: flex;
@@ -136,7 +136,7 @@ h1 {
 }
 
 .character-card:hover {
-  transform: translateY(-$spacing-xxs);
+  transform: translateY($spacing-xxs);
 }
 
 .card-left {
@@ -251,7 +251,7 @@ h2 {
 .loader-container {
   width: 400px; // Ou une largeur fixe, selon votre design
   height: 200px; // Ou une hauteur fixe, selon votre design
-  box-shadow: 0px $spacing-sm $spacing-lg -$spacing-xxs rgba(0, 0, 0, 0.1);
+  box-shadow: 0px $spacing-sm $spacing-lg $spacing-xxs rgba(0, 0, 0, 0.1);
   border-radius: $spacing-md;
   // border: 1px solid black;
   // margin: 20px;

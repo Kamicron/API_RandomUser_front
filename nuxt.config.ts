@@ -27,6 +27,8 @@ export default defineNuxtConfig({
                 @import "@/assets/scss/variables/typographie.scss";
                 @import "@/assets/scss/variables/font.scss";
                 @import "@/assets/scss/button.scss";
+                @import "@/assets/scss/title.scss";
+                @import "@/assets/scss/input.scss";
                 `,
             },
         },
