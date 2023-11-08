@@ -41,6 +41,7 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import Alert from '/components/global/alert/alert.vue';
+const config = useRuntimeConfig();
 
 // Références pour les éléments de l'interface et les données utilisateur
 const alertRef = ref(null);
@@ -90,7 +91,7 @@ async function trySubmitForm(submitFunction: () => Promise<boolean>) {
 const handleInscription = async () => {
   const isSuccessful = await trySubmitForm(async () => {
     try {
-      const response = await axios.post('http://localhost:3001/users/inscription', user.value);
+      const response = await axios.post(`http://${config.public.backBaseUrl}:${config.public.backPort}/users/inscription`, user.value);
       user.value = response.data;
       sessionStorage.setItem('user', JSON.stringify(user.value));
       alertRef.value?.addMessage('success', 'Inscription réussie avec succès!');
@@ -110,7 +111,7 @@ const handleInscription = async () => {
 const handleLogin = async () => {
   const isSuccessful = await trySubmitForm(async () => {
     try {
-      const response = await axios.post('http://localhost:3001/users/connexion', credentials.value);
+      const response = await axios.post(`http://${config.public.backBaseUrl}:${config.public.backPort}/users/connexion`, credentials.value);
       user.value = response.data;
       sessionStorage.setItem('user', JSON.stringify(user.value));
       alertRef.value?.addMessage('success', 'Connexion réussie avec succès!');

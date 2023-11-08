@@ -1,5 +1,6 @@
 <script setup lang='ts'>
 import MarkdownIt from 'markdown-it';
+const config = useRuntimeConfig();
 
 const frontendVersion = ref("0.2.0");
 const backendVersion = ref("0.2.0"); 
@@ -8,19 +9,14 @@ const markdownContent = ref("");
 const parsedHtml = ref("");
 const md = new MarkdownIt();
 
-const goToChangelog = (version, port) => {
-  const url = `http://localhost:${port}/changelog.md#v${version}`; 
-  window.open(url, '_blank');
-}
-
-const response = await fetch('http://localhost:3000/changelog.md');
+const response = await fetch(`http://${config.public.frontBaseUrl}:${config.public.frontPort}/changelog.md`);
   const text = await response.text();
   markdownContent.value = text;
   parsedHtml.value = md.render(markdownContent.value);
 
   onMounted(async () => {
   try {
-    const response = await fetch('http://localhost:3000/changelog.md');
+    const response = await fetch(`http://${config.public.backBaseUrl}:${config.public.backPort}/changelog.md`);
     const text = await response.text();
     markdownContent.value = text;
     parsedHtml.value = md.render(markdownContent.value);
@@ -38,14 +34,16 @@ const response = await fetch('http://localhost:3000/changelog.md');
 
     <!-- <div v-html="parsedHtml"></div> -->
     <div>
-      Version Frontend: <a class="link" href="http://localhost:3000/changelog.md" target="_blank">{{ frontendVersion }}</a>
+      Version Frontend: <a class="link" :href="`http://${config.public.frontBaseUrl}:${config.public.frontPort}/changelog.md`" target="_blank">{{ frontendVersion }}</a>
       
     </div>
     <div>
-      Version Backend: <a class="link" href="http://localhost:3001/changelog.md" target="_blank">{{ backendVersion }}</a>
+      Version Backend: <a class="link" :href="`http://${config.public.backBaseUrl}:${config.public.backPort}/changelog.md`" target="_blank">{{ backendVersion }}</a>
     </div>
   </footer>
 </template>
+
+
 
 <style lang="scss" scoped>
 footer {

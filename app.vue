@@ -12,6 +12,8 @@
 <script lang="ts" setup>
 import { library } from '@fortawesome/fontawesome-svg-core'
 import { faUser } from '@fortawesome/free-regular-svg-icons'
+const config = useRuntimeConfig();
+
 // import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 
 library.add(faUser)

@@ -1,8 +1,16 @@
 // import { FontAwesomeIcon } from './plugins/fontawesome'
 // https://nuxt.com/docs/api/configuration/nuxt-config
+
+import myConfig from './config';
+
 export default defineNuxtConfig({
   devtools: { enabled: true },
   components: true,
+  runtimeConfig: {
+    public: {
+      ...myConfig,
+    },
+  },
   plugins: [
     '~/plugins/fontawesome.js',
   ],

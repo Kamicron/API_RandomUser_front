@@ -1,28 +1,20 @@
 <template>
   <div>
-    <button @click="openModalPassword">Open</button>
-
-    <ModalAruModal :is-open="isModalPasswordOpen" title="Modification de votre mot de passe" @close="closeModalPassword">
-    Ceci est une modale
-    </ModalAruModal>
+test
   </div>
 </template>
 
 <script setup lang='ts'>
-const isModalPasswordOpen = ref<boolean>(false)
-
-const openModalPassword = () => {
-  isModalPasswordOpen.value = true
-}
-
-const closeModalPassword = () => {
-  isModalPasswordOpen.value = false
-}
-
+const config = useRuntimeConfig();
+console.log('API Base URL:', config.public.apiBaseUrl);
+console.log('Port:', config.public.port);
 </script>
+
+
 
 <style lang="scss" scoped>
 div {
   background-color: $danger-color;
 }
 </style>
+  

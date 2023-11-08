@@ -1,10 +1,12 @@
 import axios from 'axios';
 
+const backPort = 3001
+const backBaseUrl = 'localhost'
+
 export const getRandomCharacter = async (params = {}) => {
   try {
     // Construit l'URL avec les paramètres
-    const url = new URL('http://localhost:3001/apocalypse/random-pnj');
-
+    const url = new URL(`http://${backBaseUrl}:${backPort}/apocalypse/random-pnj`);
     // Ajoute chaque paire clé/valeur en tant que paramètres de recherche à l'URL
     Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
 
@@ -21,7 +23,7 @@ export const getRandomCharacter = async (params = {}) => {
 
 export const getEthnicDistributionByNationality = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/global/information-table/suborigin-distribution-by-origin');
+    const response = await axios.get(`http://${backBaseUrl}:${backPort}/global/information-table/suborigin-distribution-by-origin`);
     return response.data;
   } catch (error) {
     console.error('Erreur lors de l\'appel à l\'API :', error);
@@ -31,7 +33,7 @@ export const getEthnicDistributionByNationality = async () => {
 
 export const getStats = async () => {
   try {
-    const response = await axios.get('http://localhost:3001/global/information-table/stats');
+    const response = await axios.get(`http://${backBaseUrl}:${backPort}/global/information-table/stats`);
     return response.data;
   } catch (error) {
     console.error('Erreur lors de l\'appel à l\'API :', error);

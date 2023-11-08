@@ -28,6 +28,9 @@ const props = defineProps({
   },
 });
 
+const config = useRuntimeConfig();
+console.log('API Base URL:', config.public.apiBaseUrl);
+
 
 const emit = defineEmits(['update:selected']);
 
@@ -37,7 +40,7 @@ const selectedLabel = ref('Choisir une option'); // Texte par défaut
 const isOpen = ref(false);
 const dropdownId = `dropdown-${props.option}-${Date.now()}`;
 
-const apiUrl = 'http://localhost:3001/global/information-table/';
+const apiUrl = `http://${config.public.backBaseUrl}:${config.public.backPort}/global/information-table/`;
 
 const fetchData = async (option: OptionTypes.SelectedValue) => {
   try {
