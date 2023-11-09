@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="authentification">
     <!-- Composant Alert pour les messages -->
     <Alert ref="alertRef" />
 
@@ -26,13 +26,15 @@
       </ModalAruModal>
 
     <!-- Boutons pour afficher les modals -->
-    <button v-if="!user.login" @click="openModalInscription">Inscription</button>
-    <button v-if="!user.login" @click="openModalConnexion">Connexion</button>
+    <div v-if="!user.login" class="authentification__container">
+      <button class="button" @click="openModalInscription">Inscription</button>
+      <button class="button" @click="openModalConnexion">Connexion</button>
+    </div>
 
     <!-- Affichage utilisateur connecté -->
-    <div v-else>
+    <div v-else class="authentification__container">
       Connecté en tant que: {{ user.login }}
-      <button @click="handleLogout">Déconnexion</button>
+      <button class="button" @click="handleLogout">Déconnexion</button>
     </div>
   </div>
 </template>
@@ -145,7 +147,13 @@ const handleLogin = async () => {
       alertRef.value?.addMessage('success', 'Connexion réussie avec succès!');
       return true;
     } catch (error) {
-      alertRef.value?.addMessage('error', 'Erreur lors de la connexion.');
+      const errorAlert = error.response?.data || "Une erreur inattendue est survenue.";
+      if ( errorAlert === "Connexion échouée: Email ou mot de passe incorrect.") {
+        errorMessages.value.email = "Email ou mot de passe incorrect."
+        errorMessages.value.password = "Email ou mot de passe incorrect."
+      }
+      alertRef.value?.addMessage('error', errorAlert);
+      
       return false;
     }
   });
@@ -174,6 +182,19 @@ onMounted(loadUserFromSession);
 </script>
 
 <style lang="scss" scoped>
+
+.authentification {
+  &__container {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    font-family: $font-family-roboto;
+
+
+    gap: $spacing-xs;
+    margin: $spacing-xxs;
+  }
+}
 .formulaire {
   display: flex;
   flex-direction: column;
