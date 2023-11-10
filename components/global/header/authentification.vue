@@ -26,14 +26,14 @@
       </ModalAruModal>
 
     <!-- Boutons pour afficher les modals -->
-    <div v-if="!user.login" class="authentification__container">
+    <div v-if="savedUser.email === ''" class="authentification__container">
       <button class="button" @click="openModalInscription">Inscription</button>
       <button class="button" @click="openModalConnexion">Connexion</button>
     </div>
 
     <!-- Affichage utilisateur connecté -->
     <div v-else class="authentification__container">
-      Connecté en tant que: {{ user.login }}
+      Connecté en tant que: {{ savedUser.login }}
       <button class="button" @click="handleLogout">Déconnexion</button>
     </div>
   </div>
@@ -44,7 +44,12 @@ import { ref } from 'vue';
 import axios from 'axios';
 import Alert from '/components/global/alert/alert.vue';
 const config = useRuntimeConfig();
-
+const user = ref({
+  login: null,
+  email: null,
+  password: null,
+});
+console.log("user.Value", user.value);
 // Références pour les éléments de l'interface et les données utilisateur
 const alertRef = ref(null);
 const inscriptionModal = ref(null);
@@ -72,11 +77,7 @@ const closeModalConnexion = () => {
 }
 
 
-const user = ref({
-  login: '',
-  email: '',
-  password: '',
-});
+
 
 const credentials = ref({
   email: '',
@@ -160,6 +161,7 @@ const handleLogin = async () => {
 
   if (isSuccessful) {
     closeModalConnexion();
+    loadUserFromSession()
   }
 };
 
@@ -167,15 +169,32 @@ const handleLogin = async () => {
 const handleLogout = () => {
   user.value = { login: '', email: '', password: '' };
   sessionStorage.removeItem('user');
+  loadUserFromSession()
   alertRef.value?.addMessage('success', 'Déconnexion réussie avec succès!');
 };
 
+
+
+
+
+const savedUser = ref({
+  login: '',
+  email: '',
+  password: '',
+});
+
 const loadUserFromSession = () => {
-  const savedUser = sessionStorage.getItem('user');
-  if (savedUser) {
-    user.value = JSON.parse(savedUser);
-  }
+   const userSession = sessionStorage.getItem('user');
+   if (userSession) {
+       savedUser.value = JSON.parse(userSession);
+   } else {
+       // Réinitialiser savedUser à un objet vide si aucun utilisateur n'est enregistré dans la session
+       savedUser.value = { login: '', email: '', password: '' };
+   }
+
+   console.log("savedUser.value", savedUser.value);
 };
+
 
 onMounted(loadUserFromSession);
 

@@ -9,6 +9,28 @@ This file outlines all the significant changes made to the project. The format i
 - Connection the API to front
 - Create basic component to test
 
+
+## [2.0.2] - XXXX-XX-XX
+
+### 📦 Added
+- New features that have been added.
+
+### 🔄 Changed
+- Changes `auth.vue` page to `profil.vue` page to see user information. 
+
+### ⚠️ Deprecated
+- Features that were once stable but are no longer recommended and will be removed in future versions.
+
+### 🗑️ Removed
+- Features that have been deprecated or outdated and are now removed.
+
+### 🐛 Fixed
+- login when click on creat account.
+
+### 🔒 Security
+- Implemented any security enhancements.
+
+
 ## [2.0.1] - 2023-11-08
 
 ### 📦 Added

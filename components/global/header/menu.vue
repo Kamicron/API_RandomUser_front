@@ -3,7 +3,7 @@
     <ul>
       <li><RouterLink to="/">Accueil</RouterLink></li>
       <li><RouterLink to="/test">Test</RouterLink></li>
-      <li><RouterLink to="/auth">Page test de connexion</RouterLink></li>
+      <li><RouterLink to="/profil">Mon compte</RouterLink></li>
     </ul>
   </nav>
 </template>
