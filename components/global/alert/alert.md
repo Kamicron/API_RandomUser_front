@@ -86,17 +86,20 @@ Dans l'exemple ci-dessous, nous avons un composant Vue qui intègre un système 
 ```html
 <template>
   <div>
-    <button @click="() => alertRef.value?.addMessage('success')">Afficher l'Alerte de Succès</button>
-    <button @click="() => alertRef.value?.addMessage('error', 'Mot de passe erroné')">Erreur Mot de Passe</button>
-    <button @click="() => alertRef.value?.addMessage('error', 'Bad Request')">Erreur Bad Request</button>
-    <button @click="() => alertRef.value?.addMessage('error', 'Droits insuffisants')">Erreur Droits</button>
+    <button class="button" @click="() => showMessageAlert('success', 'Opération réussie !')">Afficher l'Alerte de Succès</button>
+    <button class="button" @click="() => showMessageAlert('error', 'Une erreur est survenue')">Afficher l'Alerte d'Erreur</button>
+
     <Alert ref="alertRef" />
   </div>
 </template>
 
 <script setup lang='ts'>
-import Alert, { AlertInstance } from '/components/alert.vue';
+import Alert from '/components/global/alert/alert.vue';
 
-const alertRef = ref<AlertInstance | null>(null);
+const alertRef = ref<typeof Alert | null>(null);
+
+const showMessageAlert = (status: 'success' | 'error', message: string) => {
+  alertRef.value?.addMessage(status, message);
+};
 </script>
 ``` 

@@ -13,13 +13,26 @@
       :required="true"
       :icon="{ name: 'home', type: 'regular' }"
     />
+    <Alert ref="alertRef" />
+    <button class="button" @click="() => showMessageAlert('success', 'Opération réussie !')">Afficher l'Alerte de Succès</button>
+    <button class="button" @click="() => showMessageAlert('error', 'Une erreur est survenue')">Afficher l'Alerte d'Erreur</button>
   </div>
 </template>
 
 <script setup lang='ts'>
+import Alert from '/components/global/alert/alert.vue';  // Importez simplement Alert ici
+
 const config = useRuntimeConfig();
 console.log('API Base URL:', config.public.apiBaseUrl);
 console.log('Port:', config.public.port);
+
+const alertRef = ref<typeof Alert | null>(null);
+
+const showMessageAlert = (status: 'success' | 'error', message: string) => {
+  alertRef.value?.addMessage(status, message);
+};
+
+
 </script>
 
 

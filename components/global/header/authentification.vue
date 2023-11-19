@@ -4,26 +4,29 @@
     <Alert ref="alertRef" />
 
     <!-- Modal Inscription -->
-    <ModalAruModal max-width="500px" :is-open="isModalInscriptionOpen" title="Inscription"
-      @close="closeModalInscription">
+    <ModalAruModal max-width="500px" :is-open="isModalInscriptionOpen" title="Inscription" @close="closeModalInscription">
       <form class="formulaire" @submit.prevent="handleInscription">
-        <InputAruInput type="text" label="Login" v-model="user.login" required :icon="{name:'home', type:'regular'}" error="Ceci est une erreure" placeholder="login"/>
-        <InputAruInput type="email" label="Email" v-model="user.email" required :icon="{name:'home', type:'regular'}" error="Ceci est une erreure" placeholder="email"/>
-        <InputAruInput type="password" label="Mor de passe" v-model="user.password" required :icon="{name:'home', type:'regular'}" error="Ceci est une erreure" placeholder="Mot de passe"/>
+        <InputAruInput type="text" label="Login" v-model="user.login" required :icon="{ name: 'home', type: 'regular' }"
+          error="Ceci est une erreure" placeholder="login" />
+        <InputAruInput type="email" label="Email" v-model="user.email" required :icon="{ name: 'home', type: 'regular' }"
+          error="Ceci est une erreure" placeholder="email" />
+        <InputAruInput type="password" label="Mor de passe" v-model="user.password" required
+          :icon="{ name: 'home', type: 'regular' }" error="Ceci est une erreure" placeholder="Mot de passe" />
         <button class="button" type="submit">S'inscrire</button>
       </form>
     </ModalAruModal>
 
 
     <!-- Modal Connexion -->
-    <ModalAruModal max-width="500px" :is-open="isModalConnexionOpen" title="Connexion"
-      @close="closeModalConnexion">
-        <form class="formulaire" @submit.prevent="handleLogin" novalidate >
-          <InputAruInput type="email" label="Email" v-model="credentials.email" required :icon="{name:'home', type:'regular'}" :error="errorMessages.email" placeholder="adresse mail"/>
-          <InputAruInput type="password" label="Mot de passe" v-model="credentials.password" required :icon="{name:'home', type:'regular'}" :error="errorMessages.password" placeholder="mot de passe"/>
-          <button class="button" type="submit">Se connecter</button>
-        </form>
-      </ModalAruModal>
+    <ModalAruModal max-width="500px" :is-open="isModalConnexionOpen" title="Connexion" @close="closeModalConnexion">
+      <form class="formulaire" @submit.prevent="handleLogin" novalidate>
+        <InputAruInput type="email" label="Email" v-model="credentials.email" required
+          :icon="{ name: 'home', type: 'regular' }" :error="errorMessages.email" placeholder="adresse mail" />
+        <InputAruInput type="password" label="Mot de passe" v-model="credentials.password" required
+          :icon="{ name: 'home', type: 'regular' }" :error="errorMessages.password" placeholder="mot de passe" />
+        <button class="button" type="submit">Se connecter</button>
+      </form>
+    </ModalAruModal>
 
     <!-- Boutons pour afficher les modals -->
     <div v-if="savedUser.email === ''" class="authentification__container">
@@ -33,7 +36,7 @@
 
     <!-- Affichage utilisateur connecté -->
     <div v-else class="authentification__container">
-      Connecté en tant que: {{ savedUser.login }}
+      Connecté en tant que: {{ state.user.login }}
       <button class="button" @click="handleLogout">Déconnexion</button>
     </div>
   </div>
@@ -43,6 +46,14 @@
 import { ref } from 'vue';
 import axios from 'axios';
 import Alert from '/components/global/alert/alert.vue';
+import { useUserSession } from '../../../composables/useUserSession';
+import { useGlobalStore } from '../../../stores/useGlobalStore';
+
+const { state, setUser } = useGlobalStore();
+
+
+const { savedUser, loadUserFromSession } = useUserSession();
+
 const config = useRuntimeConfig();
 const user = ref({
   login: null,
@@ -93,7 +104,7 @@ const errorMessages = ref({
 const validateEmail = (email) => {
 
   console.log('email', email);
-  
+
   if (!email) {
     return 'Le champ Email est requis.';
   } else if (!email.includes('@') || !email.includes('.')) {
@@ -145,16 +156,21 @@ const handleLogin = async () => {
       const response = await axios.post(`http://${config.public.backBaseUrl}:${config.public.backPort}/users/connexion`, credentials.value);
       user.value = response.data;
       sessionStorage.setItem('user', JSON.stringify(user.value));
+      setUser(user);
+      console.log('state', state.user.login);
+
+      console.log('setUser', setUser);
+
       alertRef.value?.addMessage('success', 'Connexion réussie avec succès!');
       return true;
     } catch (error) {
       const errorAlert = error.response?.data || "Une erreur inattendue est survenue.";
-      if ( errorAlert === "Connexion échouée: Email ou mot de passe incorrect.") {
+      if (errorAlert === "Connexion échouée: Email ou mot de passe incorrect.") {
         errorMessages.value.email = "Email ou mot de passe incorrect."
         errorMessages.value.password = "Email ou mot de passe incorrect."
       }
       alertRef.value?.addMessage('error', errorAlert);
-      
+
       return false;
     }
   });
@@ -171,37 +187,41 @@ const handleLogout = () => {
   sessionStorage.removeItem('user');
   loadUserFromSession()
   alertRef.value?.addMessage('success', 'Déconnexion réussie avec succès!');
+
 };
 
 
 
 
 
-const savedUser = ref({
-  login: '',
-  email: '',
-  password: '',
+// const savedUser = ref({
+//   login: '',
+//   email: '',
+//   password: '',
+// });
+
+// const loadUserFromSession = () => {
+//    const userSession = sessionStorage.getItem('user');
+//    if (userSession) {
+//        savedUser.value = JSON.parse(userSession);
+//    } else {
+//        // Réinitialiser savedUser à un objet vide si aucun utilisateur n'est enregistré dans la session
+//        savedUser.value = { login: '', email: '', password: '' };
+//    }
+
+//    console.log("savedUser.value", savedUser.value);
+// };
+
+
+onMounted(() => {
+  if (typeof window !== 'undefined') {
+    loadUserFromSession()
+  }
 });
-
-const loadUserFromSession = () => {
-   const userSession = sessionStorage.getItem('user');
-   if (userSession) {
-       savedUser.value = JSON.parse(userSession);
-   } else {
-       // Réinitialiser savedUser à un objet vide si aucun utilisateur n'est enregistré dans la session
-       savedUser.value = { login: '', email: '', password: '' };
-   }
-
-   console.log("savedUser.value", savedUser.value);
-};
-
-
-onMounted(loadUserFromSession);
 
 </script>
 
 <style lang="scss" scoped>
-
 .authentification {
   &__container {
     display: flex;
@@ -214,6 +234,7 @@ onMounted(loadUserFromSession);
     margin: $spacing-xxs;
   }
 }
+
 .formulaire {
   display: flex;
   flex-direction: column;

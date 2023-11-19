@@ -40,3 +40,43 @@ export const getStats = async () => {
     return null;
   }
 };
+
+
+export const updateLogin = async (userId, newLogin) => {
+  try {
+    const response = await axios.put(`http://${backBaseUrl}:${backPort}/users/update-login`, {
+      userId, 
+      newLogin,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du login :', error);
+    throw error;
+  }
+};
+
+export const updateEmail = async (userId, newEmail) => {
+  try {
+    const response = await axios.put(`http://${backBaseUrl}:${backPort}/users/update-email`, {
+      userId, 
+      newEmail,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour de l\'email :', error);
+    throw error;
+  }
+};
+
+export const updatePassword = async (userId, newPassword) => {
+  try {
+    const response = await axios.put(`http://${backBaseUrl}:${backPort}/users/update-password`, {
+      userId, 
+      newPassword,
+    });
+    return response.data;
+  } catch (error) {
+    console.error('Erreur lors de la mise à jour du mot de passe :', error);
+    throw error;
+  }
+};
